@@ -2,3 +2,5 @@
 NamespaceId: "2bdf0290-9626-41e8-821f-00c954bc107e"
 IpAddr: "127.0.0.1"
 Port: 8848
+DataId: "configuration"
+Group: "dev"

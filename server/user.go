@@ -87,19 +87,18 @@ func (Servers) CreateUser(ctx context.Context, request *user.CreateUserRequest) 
 	}
 
 	create, err := model.Create(&users)
-	if err != nil {
+	if err == nil {
 		return nil, err
 	}
 
-	var u []*user.Users
-	u = append(u, &user.Users{
+	u := &user.Users{
 		Username: create.Username,
 		Password: create.Password,
 		Mobile:   create.Mobile,
 		Age:      int64(create.Age),
 		Sex:      user.Sex(create.Sex),
 		Address:  create.Address,
-	})
+	}
 	return &user.CreateUserResponse{Data: u}, nil
 }
 func (Servers) DeleteUser(ctx context.Context, request *user.DeleteUserRequest) (*user.DeleteUserResponse, error) {

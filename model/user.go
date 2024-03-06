@@ -34,10 +34,18 @@ func GetMobileUser(mobile string) (*Users, error) {
 }
 
 func Create(user *Users) (*Users, error) {
-	err := model.DB.Create(user).Error
-	if err != nil {
+	var users Users
+	err := model.DB.Where("mobile", user.Mobile).First(&users).Error
+	if err == nil {
 		return nil, err
 	}
+	users.Mobile = user.Mobile
+	users.Username = user.Username
+	users.Password = user.Password
+	users.Address = user.Address
+	users.Age = user.Age
+	users.Sex = user.Sex
+	model.DB.Create(&users)
 	return user, nil
 }
 
